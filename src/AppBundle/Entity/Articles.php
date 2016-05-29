@@ -2,18 +2,21 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Traits\File;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Articles
- * @ORM\Table(name="articles")
+ * @ORM\Table(name="articles", uniqueConstraints={@ORM\UniqueConstraint(name="menu_position_unique_idx", columns={"menu_id", "position"})})
  * @ORM\Entity()
+ * @UniqueEntity(fields={"menu", "position"}, message="entity.duplicate")
  *
  */
 class Articles
 {
+    use File;
     /**
      * @var integer
      *

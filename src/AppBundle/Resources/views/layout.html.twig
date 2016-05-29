@@ -35,6 +35,21 @@
     <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#menu-section">
+{% set home = [] %}
+{% set services = [] %}
+{% set works = [] %}
+{% set contact = [] %}
+{% for item in data %}
+    {% if item.position == 1 %}
+        {% set home = item %}
+    {% elseif item.position == 2 %}
+        {% set services = item %}
+    {% elseif item.position == 3 %}
+        {% set works = item %}
+    {% elseif item.position == 4 %}
+        {% set contact = item %}
+    {% endif %}
+{% endfor %}
 <!--MENU SECTION START-->
 <div class="navbar navbar-inverse navbar-fixed-top scroll-me" id="menu-section" >
     <div class="container">
@@ -45,17 +60,36 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-
                 LIGHT WAVE
-
             </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                {% for menu in menus %}
-                    <li><a href="#{{ menu.slug }}">{{ menu.name }}</a></li>
-
-                {% endfor %}
+                {#{% for menu in menus %}#}
+                    <li><a href="#{{ home.slug }}">
+                            {% filter upper %}
+                                {{ home.name }}
+                            {% endfilter %}
+                        </a>
+                    </li>
+                    <li><a href="#{{ services.slug }}">
+                            {% filter upper %}
+                                {{ services.name }}
+                            {% endfilter %}
+                        </a>
+                    </li>
+                    <li><a href="#{{ works.slug }}">
+                            {% filter upper %}
+                                {{ works.name }}
+                            {% endfilter %}
+                        </a>
+                    </li>
+                    <li><a href="#{{ contact.slug }}">
+                            {% filter upper %}
+                                {{ contact.name }}
+                            {% endfilter %}
+                        </a>
+                    </li>
             </ul>
         </div>
 
@@ -63,9 +97,7 @@
 </div>
 <!--MENU SECTION END-->
 <!--HOME SECTION START-->
-{% for item in data %}
-    {% if item.slug == 'home' %}
-<div id="{{ item.slug }}" >
+<div id="{{ home.slug }}" >
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
@@ -73,59 +105,24 @@
 
                     <div class="carousel-inner">
 
-                                {% for article in item.article %}
-                                    <div class="item {% if article.position == 1 %}active{% endif %}">
-
-                                        <h3>
-                                            {{ article.title }}
-                                        </h3>
-                                        <p>
-                                            {{ article.body }}
-                                        </p>
-                                    </div>
-
-                                    {% endfor %}
-
-                        {#<div class="item active">#}
-
-                            {#<h3>#}
-                                {#Consectetur adipiscing elit felis dolor felis dolor vitae#}
-                            {#</h3>#}
-                            {#<p>#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit.#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit.#}
-                            {#</p>#}
-                        {#</div>#}
-                        {#<div class="item">#}
-                            {#<h3>#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit#}
-                            {#</h3>#}
-                            {#<p>#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit.#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit#}
-                                {#Lorem ipsumdolor sitamet, consect adipiscing elit.#}
-                            {#</p>#}
-                        {#</div>#}
-
+                        {% for article in home.article %}
+                            <div class="item {% if article.position == 1 %}active{% endif %}">
+                                <h3> {{ article.title }} </h3>
+                                <p> {{ article.body }} </p>
+                            </div>
+                        {% endfor %}
                     </div>
-
-
                 </div>
-
-
             </div>
         </div>
         <div class="row animate-in" data-anim-type="fade-in-up">
             <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2 scroll-me">
 
 
-                <p >
-                    This line is fixed so you can write anything
+                {#<p >#}
+                    {#This line is fixed so you can write anything#}
 
-                </p>
+                {#</p>#}
                 {#<div class="social">#}
                     {#<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-facebook "></i></a>#}
                     {#<a href="#" class="btn button-custom btn-custom-one" ><i class="fa fa-twitter"></i></a>#}
@@ -138,25 +135,21 @@
             </div>
         </div>
     </div>
-
 </div>
-    {% endif %}
-{% endfor %}
+
 <!--HOME SECTION END-->
 <!--SERVICE SECTION START-->
-{% for item in data %}
-    {% if item.slug == 'services' %}
-<section id="{{ item.slug }}" >
+<section id="{{ services.slug }}" >
     <div class="container">
         <div class="row text-center header">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 animate-in" data-anim-type="fade-in-up">
 
-                <h3>{{ item.metaTitle }}</h3>
+                <h3>{{ services.metaTitle }}</h3>
                 <hr />
             </div>
         </div>
         <div class="row animate-in" data-anim-type="fade-in-up">
-                    {% for article in item.article %}
+                    {% for article in services.article %}
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <div class="services-wrapper">
                                 <i class="{{ article.icon }}"></i>
@@ -166,267 +159,17 @@
                         </div>
                     {% endfor %}
         </div>
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-model-s"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-scissors"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-clipboard"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-calendar"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-erlenmeyer-flask"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-monitor"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-pinpoint"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-tshirt-outline"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                {#<div class="services-wrapper">#}
-                    {#<i class="ion-speedometer"></i>#}
-                    {#<h3>Consectetur tellus nec</h3>#}
-                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
-                    {#Aliquam tempus ante placerat, consectetur tellus nec, porttitor nulla.#}
-                {#</div>#}
-            {#</div>#}
-
         </div>
 
     </div>
 </section>
-    {% endif %}
-{% endfor %}
-<!--SERVICE SECTION END-->
-<!--PRICING SECTION START-->
-{#<section id="pricing" >#}
-    {#<div class="container">#}
-        {#<div class="row text-center header animate-in" data-anim-type="fade-in-up">#}
-            {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
-                {#<h3>Pricing Options</h3>#}
-                {#<hr />#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="row pad-bottom animate-in" data-anim-type="fade-in-up">#}
-            {#<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">#}
-                {#<div class="row db-padding-btm db-attached">#}
-                    {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
-                        {#<div class="light-pricing">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>99#}
-                                {#<small>per day</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#BASIC#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
-                        {#<div class="light-pricing popular">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>199#}
-                                {#<small>per month</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#MEDIUM#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
-                        {#<div class="light-pricing">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>249#}
-                                {#<small>per yer</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#ADVANCE#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
-                        {#<div class="light-pricing">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>599#}
-                                {#<small>one time</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#EXTENDED#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="row animate-in" data-anim-type="fade-in-up">#}
-            {#<div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">#}
-                {#<div class="row db-padding-btm db-attached">#}
-
-                    {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                        {#<div class="light-pricing ">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>99#}
-                                {#<small>per day</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#SMALL#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                        {#<div class="light-pricing popular">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>159#}
-                                {#<small>per month</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#MEDIUM#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
-                        {#<div class="light-pricing">#}
-                            {#<div class="price">#}
-                                {#<sup>$</sup>799#}
-                                {#<small>per month</small>#}
-                            {#</div>#}
-                            {#<div class="type">#}
-                                {#ADVANCE#}
-                            {#</div>#}
-                            {#<ul>#}
-
-                                {#<li><i class="glyphicon glyphicon-print"></i>30+ Accounts </li>#}
-                                {#<li><i class="glyphicon glyphicon-time"></i>150+ Projects </li>#}
-                                {#<li><i class="glyphicon glyphicon-trash"></i>Lead Required</li>#}
-                            {#</ul>#}
-                            {#<div class="pricing-footer">#}
-
-                                {#<a href="#" class="btn button-custom btn-custom-one">BOOK ORDER</a>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
-{#</section>#}
 {#<!--PRIICING SECTION END-->#}
 <!--WORK SECTION START-->
-{% for item in data %}
-{% if item.slug == 'works' %}
-<section id="{{ item.slug }}" >
+<section id="{{ works.slug }}" >
     <div class="container">
         <div class="row text-center header animate-in" data-anim-type="fade-in-up">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h3>Our Works</h3>
+                <h3>{{ works.metaTitle }}</h3>
                 <hr />
             </div>
         </div>
@@ -512,208 +255,131 @@
         </div>
     </div>
 </section>
-{% endif %}
-{% endfor %}
 <!--WORK SECTION END-->
-<!--TEAM SECTION START-->
-<section id="team" >
-    <div class="container">
-        <div class="row text-center header animate-in" data-anim-type="fade-in-up">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h3>Team Members </h3>
-                <hr />
-            </div>
-        </div>
-        <div class="row animate-in" data-anim-type="fade-in-up">
+{#<!--GRID SECTION START-->#}
+{#<section id="grid" >#}
+    {#<div class="container">#}
+        {#<div class="row text-center header animate-in" data-anim-type="fade-in-up">#}
+            {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
 
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="team-wrapper">
-                    <div class="team-inner" style="background-image: url('bundles/app/img/team/1.jpg')" >
-                        <a href="#" target="_blank" > <i class="fa fa-twitter" ></i></a>
-                    </div>
-                    <div class="description">
-                        <h3> Leomarid Jona</h3>
-                        <h5> <strong> Developer & Designer </strong></h5>
-                        <p>
-                            Pellentesque elementum dapibus convallis.
-                            Vivamus eget finibus massa.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="team-wrapper">
-                    <div class="team-inner" style="background-image: url('bundles/app/img/team/2.jpg')" >
-                        <a href="#" target="_blank" > <i class="fa fa-twitter" ></i></a>
-                    </div>
-                    <div class="description">
-                        <h3> Leomarid Jona</h3>
-                        <h5> <strong> Developer & Designer </strong></h5>
-                        <p>
-                            Pellentesque elementum dapibus convallis.
-                            Vivamus eget finibus massa.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="team-wrapper">
-                    <div class="team-inner" style="background-image: url('bundles/app/img/team/3.jpg')" >
-                        <a href="#" target="_blank" > <i class="fa fa-twitter" ></i></a>
-                    </div>
-                    <div class="description">
-                        <h3> Leomarid Jona</h3>
-                        <h5> <strong> Developer & Designer </strong></h5>
-                        <p>
-                            Pellentesque elementum dapibus convallis.
-                            Vivamus eget finibus massa.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <div class="team-wrapper">
-                    <div class="team-inner" style="background-image: url('bundles/app/img/team/4.jpg')" >
-                        <a href="#" target="_blank" > <i class="fa fa-twitter" ></i></a>
-                    </div>
-                    <div class="description">
-                        <h3> Leomarid Jona</h3>
-                        <h5> <strong> Developer & Designer </strong></h5>
-                        <p>
-                            Pellentesque elementum dapibus convallis.
-                            Vivamus eget finibus massa.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!--TEAM SECTION END-->
-<!--GRID SECTION START-->
-<section id="grid" >
-    <div class="container">
-        <div class="row text-center header animate-in" data-anim-type="fade-in-up">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                {#<h3>Grid Overview </h3>#}
+                {#<hr />#}
 
-                <h3>Grid Overview </h3>
-                <hr />
+            {#</div>#}
+        {#</div>#}
+        {#<div class="row pad-bottom animate-in" data-anim-type="fade-in-up">#}
 
-            </div>
-        </div>
-        <div class="row pad-bottom animate-in" data-anim-type="fade-in-up">
+            {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
+                {#<h2>1/4 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <h2>1/4 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
+                {#<h2>1/4 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <h2>1/4 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
+                {#<h2>1/4 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <h2>1/4 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">#}
+                {#<h2>1/4 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <h2>1/4 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+        {#</div>#}
+        {#<div class="row pad-bottom animate-in" data-anim-type="fade-in-up">#}
 
-            </div>
-        </div>
-        <div class="row pad-bottom animate-in" data-anim-type="fade-in-up">
+            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
+                {#<h2>1/3 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <h2>1/3 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
+                {#<h2>1/3 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <h2>1/3 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">#}
+                {#<h2>1/3 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <h2>1/3 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
 
-            </div>
+        {#</div>#}
+        {#<div class="row pad-bottom animate-in" data-anim-type="fade-in-up">#}
 
-        </div>
-        <div class="row pad-bottom animate-in" data-anim-type="fade-in-up">
+            {#<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">#}
+                {#<h2>1/2 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h2>1/2 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#</div>#}
+            {#<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">#}
+                {#<h2>1/2 Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <h2>1/2 Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
-
-            </div>
+            {#</div>#}
 
 
-        </div>
-        <div class="row animate-in" data-anim-type="fade-in-up">
+        {#</div>#}
+        {#<div class="row animate-in" data-anim-type="fade-in-up">#}
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2>Full Section</h2>
-                <p>
-                    Morbi mollis lectus et ipsum sollicitudin varius.
-                    Aliquam tempus ante placerat,
-                    consectetur tellus nec, porttitor nulla.
-                </p>
+            {#<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">#}
+                {#<h2>Full Section</h2>#}
+                {#<p>#}
+                    {#Morbi mollis lectus et ipsum sollicitudin varius.#}
+                    {#Aliquam tempus ante placerat,#}
+                    {#consectetur tellus nec, porttitor nulla.#}
+                {#</p>#}
 
-            </div>
+            {#</div>#}
 
 
 
-        </div>
-    </div>
-</section>
-<!--GRID SECTION END-->
+        {#</div>#}
+    {#</div>#}
+{#</section>#}
+{#<!--GRID SECTION END-->#}
 <!--CONTACT SECTION START-->
-<section id="contact" >
+<section id="{{ contact.slug }}" >
     <div class="container">
         <div class="row text-center header animate-in" data-anim-type="fade-in-up">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -787,6 +453,24 @@
 <script type="text/javascript" src="{{ asset('bundles/app/js/animations.min.js') }}"></script>
 <!-- CUSTOM SCRIPTS -->
 <script type="text/javascript" src="{{ asset('bundles/app/js/custom.js') }}"></script>
+
+<script type="text/javascript">
+    /*====================================
+     VAGAS SLIDESHOW SCRIPTS
+     ======================================*/
+    $.vegas('slideshow', {
+        backgrounds: [
+            {% for temp in templ %}
+            { src: '{{ temp.downloadLink }}', fade: 1000, delay: 9000 },
+//            { src: 'bundles/app/img/2.jpg', fade: 1000, delay: 9000 },
+            {% endfor %}
+        ]
+    })('overlay', {
+        /** SLIDESHOW OVERLAY IMAGE **/
+        src: 'bundles/app/js/vegas/overlays/06.png' // THERE ARE TOTAL 01 TO 15 .png IMAGES AT THE PATH GIVEN, WHICH YOU CAN USE HERE
+    });
+
+</script>
 </body>
 
 </html>

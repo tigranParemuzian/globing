@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Menu
  *
  * @ORM\Table(name="menu")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\Repository\MenuRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Menu
@@ -33,7 +33,7 @@ class Menu
     /**
      * @var string slug
      *
-     * @Gedmo\Slug(fields={"name"}, updatable=false)
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
      * @ORM\Column(type="string", length=100, unique=true, nullable=false)
      */
     private $slug;

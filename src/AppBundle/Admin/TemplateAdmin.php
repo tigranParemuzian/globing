@@ -15,7 +15,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class StoreAdmin extends Admin
+class TemplateAdmin extends Admin
 {
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
@@ -24,10 +24,8 @@ class StoreAdmin extends Admin
 
             ->tab('General')
                 ->with('General')
-                    ->add('name', null, array('label' => 'Name'))
-                    ->add('address', null, array('label' => 'Address'))
-                    ->add('number')
-                    ->add('description', 'text', array('label'=>'Description', 'attr'=>array('rows'=>6)))
+                    ->add('name')
+                    ->add('file', 'ad_file_type', array('required' => false, 'label'=>'Ad image'))
                 ->end()
             ->end()
         ;
@@ -38,9 +36,7 @@ class StoreAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
-            ->add('address')
-            ->add('number')
-        ;
+            ;
     }
 
     // Fields to be shown on lists
@@ -48,8 +44,6 @@ class StoreAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
-            ->addIdentifier('address')
-            ->addIdentifier('number')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -63,9 +57,23 @@ class StoreAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('address')
-            ->add('number')
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        $object->uploadFile();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        $object->uploadFile();
     }
 }
 

@@ -1,0 +1,37 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use AppBundle\Traits\File;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
+/**
+ * Gallery
+ *
+ * @ORM\Table(name="gallery")
+ * @ORM\Entity
+ */
+class Gallery
+{
+    use File;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Template", inversedBy="gallery")
+     * @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     */
+    private $template;
+
+}

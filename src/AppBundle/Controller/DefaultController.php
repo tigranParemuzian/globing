@@ -15,12 +15,12 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $menu = $em->getRepository('AppBundle:Menu')->findMenu();
+        $templData = $em->getRepository('AppBundle:Template')->findAll();
         $data = $em->getRepository('AppBundle:Menu')->findData();
 //        dump($data); exit;
         // replace this example code with whatever you need
         return $this->render('AppBundle::layout.html.twig',
-            array('data'=>$data, 'menus'=>$menu)
+            array('data'=>$data, 'templ'=>$templData)
         );
     }
 }

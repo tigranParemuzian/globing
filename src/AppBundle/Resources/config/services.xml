@@ -37,5 +37,23 @@
         </call>
     </service>
 
+      <!-- Template  -->
+    <service id="main.admin.template" class="AppBundle\Admin\TemplateAdmin">
+      <tag name="sonata.admin" manager_type="orm" group="Menu" label="Template image"/>
+      <argument/>
+      <argument>AppBundle\Entity\Template</argument>
+      <argument>SonataAdminBundle:CRUD</argument>
+        <call method="setTemplates">
+            <argument type="collection">
+                <argument key="edit">AppBundle:Admin:edit_i18n.html.twig</argument>
+                <argument key="show">SonataAdminBundle:CRUD:show.html.twig</argument>
+            </argument>
+        </call>
+    </service>
+
+      <service id="app.form.type.file" class="AppBundle\Form\IconType">
+          <tag name="form.type" alias="ad_file_type"  />
+      </service>
+
   </services>
 </container>

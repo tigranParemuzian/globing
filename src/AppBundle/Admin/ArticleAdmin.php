@@ -29,6 +29,7 @@ class ArticleAdmin extends Admin
                     ->add('body', 'textarea', array('label' => 'Body'))
                     ->add('footer')
                     ->add('position')
+                    ->add('file', 'ad_file_type', array('required' => false, 'label'=>'Ad image'))
                     ->add('menu')
                 ->end()
             ->end()
@@ -78,6 +79,22 @@ class ArticleAdmin extends Admin
             ->add('position')
             ->add('menu')
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($object)
+    {
+        $object->uploadFile();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function prePersist($object)
+    {
+        $object->uploadFile();
     }
 }
 
