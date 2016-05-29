@@ -53,7 +53,7 @@ class ArticleAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('count')
+            ->addIdentifier('id')
             ->addIdentifier('title')
             ->addIdentifier('icon')
             ->addIdentifier('body')
