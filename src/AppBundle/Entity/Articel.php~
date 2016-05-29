@@ -1,0 +1,65 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Articel
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Articel
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="icon", type="string", length=255, nullable=true)
+     */
+    private $icon;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="body", type="string", length=255)
+     */
+    private $body;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="footer", type="string", length=255, nullable=true)
+     */
+    private $footer;
+
+    /**
+     * @var
+     * @ORM\Column(name="position", type="integer")
+     */
+    private $position;
+
+    /**
+     * @var
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Menu", inversedBy="article")
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     */
+    private $menu;
+    
+}
