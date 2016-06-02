@@ -443,3 +443,7 @@ text-decoration:none;
 .home-text {
     min-height: 300px;
 }
+
+.item {
+    text-align: center;
+}
