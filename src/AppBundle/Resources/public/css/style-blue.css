@@ -440,10 +440,10 @@ color:#fff;
 text-decoration:none;
 }
 
-.home-text {
+.home-text .services-wrapper {
     min-height: 300px;
 }
 
-.item {
+.item .scroll-me {
     text-align: center;
 }

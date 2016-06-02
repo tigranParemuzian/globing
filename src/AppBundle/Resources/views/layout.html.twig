@@ -152,7 +152,7 @@
                     {% for article in services.article %}
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <div class="services-wrapper">
-                                <i class="{{- article.icon -}}"></i>
+                                <i class="{{- article.icon ? article.icon : '' -}}"></i>
                                 <h3>{{- article.title -}}</h3>
                                 {{- article.body -}}
                             </div>
