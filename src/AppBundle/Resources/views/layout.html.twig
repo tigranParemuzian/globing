@@ -108,7 +108,7 @@
                         {% for article in home.article %}
                             <div class="item {% if article.position == 1 %}active{% endif %}">
                                 <h3> {{ article.title }} </h3>
-                                <p> {{ article.body }} </p>
+                                <p class="home-text"> {{ article.body }} </p>
                             </div>
                         {% endfor %}
                     </div>

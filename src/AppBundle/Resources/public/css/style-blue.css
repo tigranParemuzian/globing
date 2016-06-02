@@ -439,3 +439,7 @@ font-size:10px;
 color:#fff;
 text-decoration:none;
 }
+
+.home-text {
+    min-height: 300px;
+}
