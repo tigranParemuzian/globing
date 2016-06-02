@@ -66,27 +66,27 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 {#{% for menu in menus %}#}
-                    <li><a href="#{{ home.slug }}">
+                    <li><a href="#{{- home.slug -}}">
                             {% filter upper %}
-                                {{ home.name }}
+                                {{- home.name -}}
                             {% endfilter %}
                         </a>
                     </li>
-                    <li><a href="#{{ services.slug }}">
+                    <li><a href="#{{- services.slug -}}">
                             {% filter upper %}
-                                {{ services.name }}
+                                {{- services.name -}}
                             {% endfilter %}
                         </a>
                     </li>
-                    <li><a href="#{{ works.slug }}">
+                    <li><a href="#{{- works.slug -}}">
                             {% filter upper %}
-                                {{ works.name }}
+                                {{- works.name -}}
                             {% endfilter %}
                         </a>
                     </li>
-                    <li><a href="#{{ contact.slug }}">
+                    <li><a href="#{{- contact.slug -}}">
                             {% filter upper %}
-                                {{ contact.name }}
+                                {{- contact.name -}}
                             {% endfilter %}
                         </a>
                     </li>
@@ -97,7 +97,7 @@
 </div>
 <!--MENU SECTION END-->
 <!--HOME SECTION START-->
-<div id="{{ home.slug }}" >
+<div id="{{- home.slug -}}" >
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 ">
@@ -107,8 +107,8 @@
 
                         {% for article in home.article %}
                             <div class="item {% if article.position == 1 %}active{% endif %}">
-                                <h3> {{ article.title }} </h3>
-                                <p class="home-text"> {{ article.body }} </p>
+                                <h3> {{- article.title -}} </h3>
+                                <p class="home-text"> {{- article.body -}} </p>
                             </div>
                         {% endfor %}
                     </div>
@@ -139,12 +139,12 @@
 
 <!--HOME SECTION END-->
 <!--SERVICE SECTION START-->
-<section id="{{ services.slug }}" >
+<section id="{{- services.slug -}}" >
     <div class="container">
         <div class="row text-center header">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 animate-in" data-anim-type="fade-in-up">
 
-                <h3>{{ services.metaTitle }}</h3>
+                <h3>{{- services.metaTitle -}}</h3>
                 <hr />
             </div>
         </div>
@@ -152,9 +152,9 @@
                     {% for article in services.article %}
                         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                             <div class="services-wrapper">
-                                <i class="{{ article.icon }}"></i>
-                                <h3>{{ article.title }}</h3>
-                                {{ article.body }}
+                                <i class="{{- article.icon -}}"></i>
+                                <h3>{{- article.title -}}</h3>
+                                {{- article.body -}}
                             </div>
                         </div>
                     {% endfor %}
@@ -165,11 +165,11 @@
 </section>
 {#<!--PRIICING SECTION END-->#}
 <!--WORK SECTION START-->
-<section id="{{ works.slug }}" >
+<section id="{{- works.slug -}}" >
     <div class="container">
         <div class="row text-center header animate-in" data-anim-type="fade-in-up">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h3>{{ works.metaTitle }}</h3>
+                <h3>{{- works.metaTitle -}}</h3>
                 <hr />
             </div>
         </div>
@@ -178,10 +178,10 @@
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 html">
                     <div class="work-wrapper">
                         <a class="fancybox-media" title="Image Title Goes Here" href="{{ article.downloadLink}}">
-                            <img src="{{ article.downloadLink}}" class="img-responsive img-rounded" title="{{ article.title }}" alt="{{ article.title }}" />
+                            <img src="{{ article.downloadLink}}" class="img-responsive img-rounded" title="{{- article.title -}}" alt="{{- article.title -}}" />
                         </a>
 
-                        <h4>{{ article.title }}</h4>
+                        <h4>{{- article.title -}}</h4>
                     </div>
                 </div>
 
